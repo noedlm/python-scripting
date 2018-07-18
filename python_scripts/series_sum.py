@@ -13,8 +13,9 @@ def series_sum(n):
             total += float(item)
         return "{0:.2f}".format(total)
 
+
 fractions = [Fraction(float(1) / float((3 * x) - 2)) for x in range(1, 10)]
 
 series_sum(98)
-# print fractions
-# print "{0:.2f}".format(float(fractions[2]))
+# print(fractions)
+# print("{0:.2f}".format(float(fractions[2])))
