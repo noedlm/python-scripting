@@ -21,10 +21,7 @@ def merge(left_array, right_array):
             sorted_array.append(left_array[0])
             left_array.pop(0)
 
-    if len(left_array):
-        sorted_array += left_array
-    if len(right_array):
-        sorted_array += right_array
+    sorted_array += left_array + right_array
 
     return sorted_array
 
@@ -33,4 +30,4 @@ def merge(left_array, right_array):
 unsorted_array = [5,3,7,34,7,23,98,4,0,28,49,8]
 print(merge_sort(unsorted_array))
 
-# test.TestCase.assertEqual((1 + 2), 3)
+# test.TestCase.assertEqual((1 + 2), 3)a
