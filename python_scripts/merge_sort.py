@@ -1,7 +1,7 @@
 # import unittest as test
 
 def merge_sort(array):
-    if len(array) == 1:
+    if len(array) < 2:
         return array
 
     left_array = merge_sort(array[:int(len(array)/2)])
