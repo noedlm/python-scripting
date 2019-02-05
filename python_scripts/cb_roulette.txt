@@ -1,0 +1,67 @@
+cb.settings_choices = [
+    {name:'tipRequired', label:'Tip Amount Required', type:'int', minValue:1},
+    {name:'prize0', label:'Top Prize', type:'str', minlength:1, maxLength: 99}
+];
+for (var i = 1; i <= 36; i++) {
+    var prize = {name:'prize' + i, label:'Prize for Slot ' + i, type:'str'};
+    if (i > 12) {
+        prize.required = false;
+        prize.minLength = 0;
+        prize.maxLength = 99;
+    } else {
+        prize.minLength = 1;
+        prize.maxLength = 99;
+    }
+    cb.settings_choices.push(prize);
+}
+
+for (var i = 13; i <= 36; i++) {
+    if (cb.settings['prize'+i] == '') {
+        cb.settings['prize'+i] = i%12 ? cb.settings['prize' + (i%12)] : cb.settings['prize' + ((i%12) + 1)];
+    }
+}
+
+var rouletteGifId = '8bb57a06-4370-454c-85f3-ad9659ed917a';
+var lastWinner = '';
+var lastSlot = 0;
+
+cb.onTip(function(tip) {
+    if(parseInt(tip.amount) >= cb.settings.tipRequired) {
+        lastWinner = tip.from_user;
+        lastSlot = randomizer();
+
+        cb.onDrawPanel(function(user) {
+            return {
+                "template": "image_template",
+                "layers": [
+                    {'type': 'image', 'fileID': rouletteGifId},
+                ],
+            };
+        });
+        cb.drawPanel();
+
+        cb.setTimeout(displayLastPlayed, 8000);
+    } else {
+        cb.sendNotice(tip.from_user + ', you must tip at least ' + cb.settings.tipRequired + ' Tokens to play baby doll');
+    }
+});
+
+function displayLastPlayed() {
+    cb.sendNotice('Ball landed on ' + lastSlot + '! The prize is: ' + cb.settings['prize'+lastSlot]);
+    cb.onDrawPanel(function(user) {
+        return {
+            'template': '3_rows_of_labels',
+            'row1_label': 'Last Winner:',
+            'row1_value': lastWinner,
+            'row2_label': 'Last Ball Slot:',
+            'row2_value': lastSlot,
+            'row3_label': 'Last Prize:',
+            'row3_value': cb.settings['prize'+lastSlot]
+        };
+    });
+    cb.drawPanel();
+}
+
+function randomizer() {
+    return Math.floor(Math.random() * 36);
+}
