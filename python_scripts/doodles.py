@@ -30,7 +30,7 @@ Ex: 12 => 21
 Ex: 13215664 => 13216456
 Ex: 13215964 => 13216459
 
-TODO: need to check the number that's 
+TODO: need to check the number that's
  '''
 
 
@@ -53,7 +53,6 @@ nbn[index] = nbn[index+1]
 print(nbn)
 
 print(index)
-print(sub_string)
 
 print(''.join(sorted(list(nbn[i:]))))
 
