@@ -56,13 +56,6 @@ print(index)
 
 print(''.join(sorted(list(nbn[i:]))))
 
-import math
-print(math.floor(39/10))
+l = 1
 
-x = 39
-li = list(str(x))
-result = 1
-for i in range(0, len(li)):
-    result *= int(li[i])
-
-print(result)
+print(not l)
